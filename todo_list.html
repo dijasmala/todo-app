@@ -34,6 +34,9 @@
         
         .list-group-item {
             margin: 5px 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -67,7 +70,6 @@
         // assign variables names
         let inputText;
         let listItems;
-        let Delete = '<i class="fa-sharp fa-solid fa-trash"></i>';
 
         // let activeItems = [];
         // let completedItems = [];
@@ -81,11 +83,14 @@
             listItems.className = "list-group-item";
 
             listItems.innerText = inputText;
+            listItems.innerHTML += `<i class="fa fa-sharp fa-solid fa-trash"></i>`
+
 
 
 
             if (inputText) {
                 listGroup.append(listItems);
+
                 listItems.append(Delete);
                 inputText = null;
                 itemInput.value = null;
