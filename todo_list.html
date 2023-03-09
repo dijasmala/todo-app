@@ -1,0 +1,140 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo_list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .inputs {
+            width: 100%;
+            padding: 5px 20px;
+        }
+        
+        #btn {
+            background-color: rgb(25, 108, 232);
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            border: none;
+            margin: 20px 0px;
+        }
+        
+        .complete {
+            text-decoration: line-through;
+        }
+        
+        .error {
+            color: red;
+            display: none;
+        }
+        
+        .list-group-item {
+            margin: 5px 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Todo Items</h1>
+        <h3 class="all">All: <span></span></h3>
+        <h3 class="active">Active: <span></span></h3>
+        <h3 class="completed">Completed: <span></span></h3>
+        <input type="text" class="inputs">
+        <div class="error">field is require*</div>
+        <button id="btn" class="todo-button">add to items</button>
+        <h5>Your cart</h5>
+        <ul class="list-group">
+
+        </ul>
+    </div>
+
+
+
+    <script>
+        // get elements
+        let all = document.querySelector(".all");
+        let active = document.querySelector(".active");
+        let Completed = document.querySelector(".Completed");
+        let itemInput = document.querySelector(".inputs");
+        let addButton = document.querySelector(".todo-button");
+        let listGroup = document.querySelector(".list-group");
+        let error = document.querySelector(".error");
+        // assign variables names
+        let inputText;
+        let listItems;
+        let Delete = '<i class="fa-sharp fa-solid fa-trash"></i>';
+
+        // let activeItems = [];
+        // let completedItems = [];
+
+        itemInput.addEventListener("input", (e) => {
+                inputText = e.target.value;
+            })
+            // error.style.display = "none";
+        addButton.addEventListener("click", (e) => {
+            listItems = document.createElement("li");
+            listItems.className = "list-group-item";
+
+            listItems.innerText = inputText;
+
+
+
+            if (inputText) {
+                listGroup.append(listItems);
+                listItems.append(Delete);
+                inputText = null;
+                itemInput.value = null;
+                updateItems();
+                updateActiveItems();
+                updateCompleteItems();
+
+            } else {
+                error.style.display = "block";
+            }
+        })
+        document.addEventListener("click", (e) => {
+            let elem = e.target;
+            // elem.classList.toggle("complete");
+            // console.log(, "elem");
+            if (elem.classList.contains("list-group-item")) {
+                elem.classList.toggle("complete");
+                updateActiveItems();
+                updateItems();
+                updateCompleteItems();
+            }
+
+        })
+
+        function updateItems() {
+            let span = all.querySelector("span");
+            span.innerText = listGroup.children.length;
+        }
+        updateItems();
+
+        function updateActiveItems() {
+            activeItems = Array.from(listGroup.children).filter(item => item.classList.contains("complete") == false);
+            // console.log(activeItems);
+            let span = active.querySelector("span");
+            span.innerText = activeItems.length;
+            // console.log(span.innerText, "active");
+            // console.log(activeItems);
+        }
+        updateActiveItems();
+
+        function updateCompleteItems() {
+            completedItems = Array.from(listGroup.children).filter(item => item.classList.contains("complete"));
+            let span = Completed.querySelector("span");
+            span.innerText = completedItems.length;
+            // console.log(completedItems.innerText);
+            // console.log(span.innerText, "complete");
+        }
+        updateCompleteItems();
+    </script>
+</body>
+
+</html>
