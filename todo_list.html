@@ -121,8 +121,6 @@
             // console.log(activeItems);
             let span = active.querySelector("span");
             span.innerText = activeItems.length;
-            // console.log(span.innerText, "active");
-            // console.log(activeItems);
         }
         updateActiveItems();
 
@@ -130,8 +128,6 @@
             completedItems = Array.from(listGroup.children).filter(item => item.classList.contains("complete"));
             let span = Completed.querySelector("span");
             span.innerText = completedItems.length;
-            // console.log(completedItems.innerText);
-            // console.log(span.innerText, "complete");
         }
         updateCompleteItems();
     </script>
